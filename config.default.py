@@ -1,6 +1,6 @@
 from datetime import date
-
-from autosign import rootLogger
+import logging
+rootLogger = logging.getLogger()
 
 
 def get_data(jnuid):
