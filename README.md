@@ -71,8 +71,12 @@
    ```sh
    pip install -r requirements.txt
    ```
-4. 修改 `config.py` 或者添加环境变量 `JNU_ID` 和 `JNU_PW`。分别为你的学号和密码
-5. 打开 `start.bat` 并看看是否能够成功登陆
+3. 下载对应版本的Chrome Driver并放在根目录 
+   ```
+   http://npm.taobao.org/mirrors/chromedriver/
+   ```
+5. 修改 `config.py` 或者添加环境变量 `JNU_ID` 和 `JNU_PW`。分别为你的学号和密码
+6. 打开 `start.bat` 并看看是否能够成功登陆
 
 <!-- USAGE EXAMPLES -->
 ## 使用方法
