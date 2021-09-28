@@ -72,8 +72,7 @@ class yidun_crack(object):
                     w.write(content)
                 return img_path
             except Exception as ex:
-                pass
-        raise Exception('img download Exception')
+                rootLogger.error(ex)
 
     def tell_location(self):
         """

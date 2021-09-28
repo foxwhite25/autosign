@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from config import config,headless
+from config import config, headless
 from fancy import rootLogger
 from yidun import yidun_crack
 
@@ -16,6 +16,7 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--start-maximized")
 chrome_options.headless = headless
 chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+chrome_options.add_argument('--no-proxy-server')
 
 
 class YzmFailedError(Exception):
@@ -67,7 +68,7 @@ class chrome_test(object):
         username, password = config
         self.driver.find_element_by_name('appId').send_keys(username)
         self.driver.find_element_by_name('password').send_keys(password)
-        rootLogger.info(f'Entered {username=}, password={len(password)* "*"}.')
+        rootLogger.info(f'Entered {username=}, password={len(password) * "*"}.')
 
     def login(self):
         self.driver.find_element_by_class_name('btn').click()
