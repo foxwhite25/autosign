@@ -44,7 +44,7 @@ class ColoredFormatter(logging.Formatter):
 
 # Custom logger class with multiple destinations
 class ColoredLogger(logging.Logger):
-    FORMAT = f"{COLOR_SEQ % GREEN}$BOLD[%(asctime)s]$RESET$BOLD [%(name)-10s][%(levelname)-20s]  " \
+    FORMAT = f"{COLOR_SEQ % GREEN}$BOLD[%(asctime)s]$RESET$BOLD [%(threadName)-10s] [%(levelname)-20s]  " \
              f"%(message)-70s (%(filename)s:%(lineno)d)$RESET"
     COLOR_FORMAT = formatter_message(FORMAT, True)
 

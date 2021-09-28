@@ -8,13 +8,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from config import config
+from config import config,headless
 from fancy import rootLogger
 from yidun import yidun_crack
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--start-maximized")
-chrome_options.headless = True
+chrome_options.headless = headless
 chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
 
