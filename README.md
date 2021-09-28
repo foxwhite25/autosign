@@ -2,7 +2,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -30,7 +29,7 @@
   <summary><h2 style="display: inline-block">目录</h2></summary>
   <ol>
     <li>
-      <a href="#关于这个插件">关于这脚本</a>
+      <a href="#关于这个脚本">关于这脚本</a>
       <ul>
         <li><a href="#特点">特点</a></li>
       </ul>
@@ -50,7 +49,7 @@
 
 
 <!-- 关于这个脚本 -->
-## 关于这个插件
+## 关于这个脚本
 每天打卡是不是很麻烦，还需要每天登陆，滑条验证，点击提交，要做太多事情了（
 
 这个脚本使用selenium和cv2破解滑条验证，并提交默认表单。
@@ -82,7 +81,7 @@
 <!-- LICENSE -->
 ## 协议
 
-根据GNU 3许可证分发。有关更多信息，请参见`LICENSE`。
+GPL 3许可证分发。有关更多信息，请参见`LICENSE`。
 
 
 
