@@ -76,16 +76,23 @@
    http://npm.taobao.org/mirrors/chromedriver/
    ```
 5. 修改 `config.py` 或者添加环境变量 `JNU_ID` 和 `JNU_PW`。分别为你的学号和密码
-6. 打开 `start.bat` 并看看是否能够成功登陆
+6. 打开 `start.bat` 或者shell中输入`python ./autosign.py`并看看是否能够成功登陆
 
 <!-- USAGE EXAMPLES -->
 ## 使用方法
-打开 `start.bat` 即可
+###Windows:
+打开 `start.bat` 
+###Linux:
+输入`python ./autosign.py` 前景运行
+
+输入`nohup python ./autosign.py &` 背景运行
+
+输出将会保存于`nohup.out`文件
 
 <!-- LICENSE -->
 ## 协议
 
-GPL 3许可证分发。有关更多信息，请参见`LICENSE`。
+GPL v3许可证分发。有关更多信息，请参见`LICENSE`。
 
 
 
