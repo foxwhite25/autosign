@@ -80,9 +80,13 @@
 
 <!-- USAGE EXAMPLES -->
 ## 使用方法
-###Windows:
+
+Windows:
+
 打开 `start.bat` 
-###Linux:
+
+Linux:
+
 输入`python ./autosign.py` 前景运行
 
 输入`nohup python ./autosign.py &` 背景运行
