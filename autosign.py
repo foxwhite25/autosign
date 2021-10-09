@@ -61,6 +61,7 @@ def main():
         return False
     chrome.submit()
     rootLogger.info('Completed today, quitting')
+    time.sleep(10)
     return True
 
 
