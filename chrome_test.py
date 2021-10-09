@@ -38,13 +38,14 @@ class chrome_test(object):
         )
         time.sleep(1)
         rootLogger.info('Processing yidun')
+        yidun = yidun_crack()
         button_element = self.driver.find_element_by_class_name('yidun_slider')
         ActionChains(self.driver).move_to_element(button_element).perform()
+        time.sleep(1)
         # 下载验证码进行识别
-        yidun = yidun_crack()
         bg_img_src = self.driver.find_element_by_class_name("yidun_bg-img").get_attribute("src")
-        bg_img_path = yidun.download_img(bg_img_src)
         front_img_src = self.driver.find_element_by_class_name("yidun_jigsaw").get_attribute("src")
+        bg_img_path = yidun.download_img(bg_img_src)
         front_img_path = yidun.download_img(front_img_src)
         yidun.bg_img_path = bg_img_path
         yidun.front_img_path = front_img_path
@@ -79,6 +80,19 @@ class chrome_test(object):
         rootLogger.info(f'Checked box.')
         self.driver.find_element_by_id('tj').click()
         rootLogger.info(f'Submitted form.')
+
+    def check(self):
+        rootLogger.info("Start checking")
+        self.driver.get('https://stuhealth.jnu.edu.cn/#/index/submitlist')
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'fa'))
+        )
+        check = self.driver.find_element_by_xpath('/html/body/app-root/app-index/div/div[1]/app-submit-list/section/section/div/div/div/div/div/div[2]/span[2]')
+        if 'fa-check' in check.get_attribute('class'):
+            rootLogger.info("Check successful, quitting")
+        else:
+            rootLogger.error("Check failed, retrying")
+            raise YzmFailedError
 
     def __del__(self):
         self.driver.close()

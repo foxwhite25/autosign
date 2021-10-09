@@ -21,10 +21,17 @@ def email_remind(reason: str):
         body = f'Auto sign failed, please check https://stuhealth.jnu.edu.cn/#/login if it is recorded or not.\n' \
                f'If there is a bug please report to https://github.com/foxwhite25/autosign/issues\n\n' \
                f'Reason: \n{reason}'
-        mail.send([mail.user],title,body)
+        mail.send([mail.user], title, body)
         rootLogger.error(f'Email sent! {reason=}')
     else:
         rootLogger.error(reason)
+
+
+def check(chrome):
+    try:
+        chrome.check()
+    except YzmFailedError:
+        main()
 
 
 def main():
@@ -52,7 +59,8 @@ def main():
         email_remind('Yidun Failed 20 times in a row, might have a bug.')
         return False
     if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/index/complete':
-        email_remind('Already completed today, quitting')
+        email_remind('Already completed today, checking')
+        check(chrome)
         return False
     if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/index/cantwrite':
         email_remind('Need to wait 6 hour before another form, retrying in 6 hour')
@@ -60,14 +68,20 @@ def main():
         main()
         return False
     chrome.submit()
-    rootLogger.info('Completed today, quitting')
-    time.sleep(10)
+    rootLogger.info('Completed today, initiate check.')
+    time.sleep(3)
+    check(chrome)
     return True
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        trace = traceback.format_exc()
+        email_remind(trace)
     schedule.every().day.at("00:10").do(main)  # 每天0010自动开始
+    schedule.every().day.at("12:10").do(main)
     while True:
         try:
             schedule.run_pending()

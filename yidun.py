@@ -2,6 +2,7 @@
 import logging
 import os
 import random
+import traceback
 from urllib import parse
 
 import cv2
@@ -72,7 +73,8 @@ class yidun_crack(object):
                     w.write(content)
                 return img_path
             except Exception as ex:
-                rootLogger.error(ex)
+                trace = traceback.format_exc()
+                rootLogger.error(trace)
 
     def tell_location(self):
         """
