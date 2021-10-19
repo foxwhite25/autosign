@@ -49,4 +49,3 @@ jobs:
       env:
         JNU_ID: ${{ secrets.JNU_ID}}
         JNU_PW: ${{ secrets.JNU_PW}}
-    - name: export index
