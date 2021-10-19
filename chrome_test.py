@@ -62,8 +62,8 @@ class chrome_test(object):
             t = int(time.time() * 1000) - t1
             rootLogger.info(f"{t=}, {x_offset=}")
             tracks[i][2] = t
-        self.driver.save_screenshot('images/ss.png')
         ActionChains(self.driver).release().perform()
+        self.driver.save_screenshot('images/ss.png')
         # yidun.draw_tracks(tracks)
 
     def enter_data(self):
