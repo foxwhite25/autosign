@@ -45,6 +45,10 @@ def main():
             chrome.run_yzm()
             time.sleep(2)
             chrome.login()
+            text_box = chrome.driver.find_element_by_class_name('alert alert-danger alert-dismissible')
+            if text_box:
+                rootLogger.error(text_box.text())
+                raise YzmFailedError
             time.sleep(3)
             if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/login':
                 raise YzmFailedError
