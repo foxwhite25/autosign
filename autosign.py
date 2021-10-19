@@ -45,7 +45,6 @@ def main():
             chrome.run_yzm()
             time.sleep(2)
             chrome.login()
-            chrome.driver.save_screenshot('images/ss.png')
             time.sleep(3)
             if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/login':
                 raise YzmFailedError
@@ -56,7 +55,7 @@ def main():
             client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
             client = ImgurClient(client_id, client_secret)
             image = client.upload_from_path('images/ss.png')
-            rootLogger.error("Image link:" + image.link)
+            rootLogger.error(f"{image=}")
             rootLogger.error('Seems like yidun failed, retrying')
             chrome.driver.refresh()
             time.sleep(3)
