@@ -6,6 +6,7 @@ import time
 import logging
 
 from imgurpython import ImgurClient
+from selenium.common.exceptions import NoSuchElementException
 
 from config import email
 from fancy import ColoredLogger, rootLogger
@@ -45,10 +46,12 @@ def main():
             chrome.run_yzm()
             time.sleep(2)
             chrome.login()
-            text_box = chrome.driver.find_element_by_class_name('alert alert-danger alert-dismissible')
-            if text_box:
+            try:
+                text_box = chrome.driver.find_element_by_class_name('alert')
                 rootLogger.error(text_box.text())
                 raise YzmFailedError
+            except NoSuchElementException:
+                pass
             time.sleep(3)
             if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/login':
                 raise YzmFailedError
