@@ -55,7 +55,7 @@ def main():
             client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
             client = ImgurClient(client_id, client_secret)
             image = client.upload_from_path('images/ss.png')
-            rootLogger.error(f"{image=}")
+            rootLogger.error(f"{image['link']=}")
             rootLogger.error('Seems like yidun failed, retrying')
             chrome.driver.refresh()
             time.sleep(3)
