@@ -41,11 +41,9 @@ def main():
             rootLogger.info('Attempt Login')
             chrome.enter_data()
             chrome.run_yzm()
-            time.sleep(1)
-            if chrome.driver.find_element_by_class_name('yidun_tips__text').text:
-                raise YzmFailedError
+            time.sleep(2)
             chrome.login()
-            time.sleep(1)
+            time.sleep(3)
             if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/login':
                 raise YzmFailedError
             rootLogger.info('Login successful')
@@ -57,7 +55,7 @@ def main():
             continue
     else:
         email_remind('Yidun Failed 20 times in a row, might have a bug.')
-        return False
+        raise YzmFailedError
     if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/index/complete':
         email_remind('Already completed today, checking')
         check(chrome)
