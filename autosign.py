@@ -48,7 +48,7 @@ def main():
             chrome.login()
             try:
                 text_box = chrome.driver.find_element_by_class_name('alert')
-                rootLogger.error(text_box.text())
+                rootLogger.error(text_box)
                 raise YzmFailedError
             except NoSuchElementException:
                 pass
