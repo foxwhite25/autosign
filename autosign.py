@@ -45,6 +45,7 @@ def main():
             chrome.enter_data()
             chrome.run_yzm()
             time.sleep(2)
+            chrome.driver.save_screenshot('images/ss.png')
             chrome.login()
             try:
                 text_box = chrome.driver.find_element_by_class_name('alert')
