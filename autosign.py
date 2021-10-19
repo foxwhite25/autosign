@@ -5,6 +5,8 @@ import schedule
 import time
 import logging
 
+from imgurpython import ImgurClient
+
 from config import email
 from fancy import ColoredLogger, rootLogger
 from chrome_test import chrome_test, YzmFailedError
@@ -55,6 +57,12 @@ def main():
             continue
     else:
         email_remind('Yidun Failed 20 times in a row, might have a bug.')
+        chrome.driver.save_screenshot('images/ss.png')
+        client_id = '26ef60418369362'
+        client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
+        client = ImgurClient(client_id, client_secret)
+        image = client.upload_from_path('images/ss.png')
+        print("Image link:" + image.link)
         raise YzmFailedError
     if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/index/complete':
         email_remind('Already completed today, checking')
