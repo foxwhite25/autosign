@@ -44,7 +44,7 @@ def main():
             rootLogger.info('Attempt Login')
             chrome.enter_data()
             chrome.run_yzm()
-            time.sleep(2)
+            time.sleep(1.2)
             chrome.driver.save_screenshot('images/ss.png')
             chrome.login()
             try:
