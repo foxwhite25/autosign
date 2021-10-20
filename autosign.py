@@ -39,12 +39,13 @@ def check(chrome):
 
 def main():
     chrome = chrome_test()
-    for tries in range(20):
+    for tries in range(100):
+        rootLogger.info(f"Launched {tries}tries")
         try:
             rootLogger.info('Attempt Login')
             chrome.enter_data()
             chrome.run_yzm()
-            time.sleep(1.2)
+            time.sleep(1)
             chrome.driver.save_screenshot('images/ss.png')
             chrome.login()
             try:
@@ -59,17 +60,17 @@ def main():
             rootLogger.info('Login successful')
             break
         except YzmFailedError:
-            client_id = '26ef60418369362'
-            client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
-            client = ImgurClient(client_id, client_secret)
-            image = client.upload_from_path('images/ss.png')
-            rootLogger.error(f"{image['link']=}")
+            //client_id = '26ef60418369362'
+            //client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
+            //client = ImgurClient(client_id, client_secret)
+            //image = client.upload_from_path('images/ss.png')
+            //rootLogger.error(f"{image['link']=}")
             rootLogger.error('Seems like yidun failed, retrying')
             chrome.driver.refresh()
             time.sleep(3)
             continue
     else:
-        email_remind('Yidun Failed 20 times in a row, might have a bug.')
+        email_remind('Yidun Failed 100 times in a row, might have a bug.')
         raise YzmFailedError
     if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/index/complete':
         email_remind('Already completed today, checking')
