@@ -45,7 +45,7 @@ def main():
             rootLogger.info('Attempt Login')
             chrome.enter_data()
             chrome.run_yzm()
-            time.sleep(1)
+            time.sleep(0.5)
             chrome.driver.save_screenshot('images/ss.png')
             chrome.login()
             try:
@@ -60,11 +60,11 @@ def main():
             rootLogger.info('Login successful')
             break
         except YzmFailedError:
-            #client_id = '26ef60418369362'
-            #client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
-            #client = ImgurClient(client_id, client_secret)
-            #image = client.upload_from_path('images/ss.png')
-            #rootLogger.error(f"{image['link']=}")
+            client_id = '26ef60418369362'
+            client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
+            client = ImgurClient(client_id, client_secret)
+            image = client.upload_from_path('images/ss.png')
+            rootLogger.error(f"{image['link']=}")
             rootLogger.error('Seems like yidun failed, retrying')
             chrome.driver.refresh()
             time.sleep(3)
