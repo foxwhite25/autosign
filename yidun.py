@@ -11,8 +11,7 @@ import requests
 from PIL import Image, ImageDraw
 from matplotlib import pyplot
 
-from fancy import rootLogger
-
+rootLogger = logging.getLogger('yidun')
 img_dir = 'images/'
 
 

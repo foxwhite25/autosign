@@ -4,16 +4,25 @@ from datetime import datetime
 import schedule
 import time
 import logging
-
+import colorlog
 from imgurpython import ImgurClient
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
-from config import email
-from fancy import ColoredLogger, rootLogger
-from chrome_test import chrome_test, YzmFailedError
+handler = colorlog.StreamHandler()
+handler.setFormatter(
+    colorlog.ColoredFormatter(
+        "%(log_color)s[%(asctime)s] [%(name)-15s] [%(levelname)-7s]: %(message)s (%(filename)s:%(lineno)d)",
+        "%Y-%m-%d %H:%M:%S")
+)
 
-# logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
+logger = logging.getLogger('')
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
+
 from mail import Mail
+from config import email
+from chrome_test import chrome_test, YzmFailedError
 
 
 def email_remind(reason: str):
@@ -25,9 +34,9 @@ def email_remind(reason: str):
                f'If there is a bug please report to https://github.com/foxwhite25/autosign/issues\n\n' \
                f'Reason: \n{reason}'
         mail.send([mail.user], title, body)
-        rootLogger.error(f'Email sent! {reason=}')
+        logger.info(f'Email sent! {reason=}')
     else:
-        rootLogger.error(reason)
+        logger.error(reason)
 
 
 def check(chrome):
@@ -40,32 +49,32 @@ def check(chrome):
 def main():
     chrome = chrome_test()
     for tries in range(100):
-        rootLogger.info(f"Launched {tries}tries")
+        logger.info(f"Launched {tries}tries")
         try:
-            rootLogger.info('Attempt Login')
+            logger.info('Attempt Login')
             chrome.enter_data()
             chrome.run_yzm()
             time.sleep(0.5)
             chrome.driver.save_screenshot('images/ss.png')
             chrome.login()
             try:
-                text_box = chrome.driver.find_element_by_class_name('alert')
-                rootLogger.error(text_box.text)
+                text_box = chrome.driver.find_element(By.CLASS_NAME, 'alert')
+                logger.error(text_box.text)
                 raise YzmFailedError
             except NoSuchElementException:
                 pass
             time.sleep(3)
             if chrome.driver.current_url == 'https://stuhealth.jnu.edu.cn/#/login':
                 raise YzmFailedError
-            rootLogger.info('Login successful')
+            logger.info('Login successful')
             break
         except YzmFailedError:
             client_id = '26ef60418369362'
             client_secret = '34f16664ae94027ed1d33eb50513f0c4e6e11dde'
             client = ImgurClient(client_id, client_secret)
             image = client.upload_from_path('images/ss.png')
-            rootLogger.error(f"{image['link']=}")
-            rootLogger.error('Seems like yidun failed, retrying')
+            logger.error(f"{image['link']=}")
+            logger.error('Seems like yidun failed, retrying')
             chrome.driver.refresh()
             time.sleep(3)
             continue
@@ -82,7 +91,7 @@ def main():
         main()
         return False
     chrome.submit()
-    rootLogger.info('Completed today, initiate check.')
+    logger.info('Completed today, initiate check.')
     time.sleep(3)
     check(chrome)
     return True

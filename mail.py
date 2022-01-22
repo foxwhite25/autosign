@@ -1,9 +1,11 @@
+import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from config import email_config
-from fancy import rootLogger
+
+rootLogger = logging.getLogger('mail')
 
 
 class Mail(object):
