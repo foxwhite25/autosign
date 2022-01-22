@@ -12,13 +12,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from config import config, headless
 from yidun import yidun_crack
 
-
-ua = '''chrome \
-    --disable-gpu \
-    --headless \
-    --remote-debugging-port=9222 \
-    --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36' \
-'''
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--start-maximized")
 chrome_options.headless = headless
@@ -30,13 +23,14 @@ chrome_options.add_argument(
 )
 rootLogger = logging.getLogger('chrome')
 
+
 class YzmFailedError(Exception):
     pass
 
 
 class chrome_test(object):
     def __init__(self):
-        self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver = webdriver.Chrome(options=chrome_options, executable_path='./chromedriver.exe')
         self.driver.get('https://stuhealth.jnu.edu.cn/#/login')
 
         # self.driver.get('http://localhost:63342/yidun/slider.html?_ijt=1v4ljncju1r9naf69h6p4nt0k6')
