@@ -3,6 +3,7 @@ import logging
 import time
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,11 +12,22 @@ from selenium.webdriver.support.wait import WebDriverWait
 from config import config, headless
 from yidun import yidun_crack
 
+
+ua = '''chrome \
+    --disable-gpu \
+    --headless \
+    --remote-debugging-port=9222 \
+    --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36' \
+'''
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--start-maximized")
 chrome_options.headless = headless
 chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
 chrome_options.add_argument('--no-proxy-server')
+chrome_options.add_argument(
+    "--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/97.0.4692.99 Safari/537.36'"
+)
 rootLogger = logging.getLogger('chrome')
 
 class YzmFailedError(Exception):
@@ -26,6 +38,7 @@ class chrome_test(object):
     def __init__(self):
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get('https://stuhealth.jnu.edu.cn/#/login')
+
         # self.driver.get('http://localhost:63342/yidun/slider.html?_ijt=1v4ljncju1r9naf69h6p4nt0k6')
 
     def run_yzm(self):
@@ -65,6 +78,12 @@ class chrome_test(object):
         # yidun.draw_tracks(tracks)
 
     def enter_data(self):
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.NAME, 'appId'))
+            )
+        except TimeoutException:
+            self.driver.save_screenshot('images/ss.png')
         username, password = config
         self.driver.find_element(By.NAME, 'appId').send_keys(username)
         self.driver.find_element(By.NAME, 'password').send_keys(password)
