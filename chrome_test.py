@@ -18,8 +18,7 @@ chrome_options.headless = headless
 chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
 chrome_options.add_argument('--no-proxy-server')
 chrome_options.add_argument(
-    "--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/97.0.4692.99 Safari/537.36'"
+    "--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'"
 )
 rootLogger = logging.getLogger('chrome')
 
