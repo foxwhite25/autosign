@@ -49,7 +49,7 @@ def check(chrome):
 def main():
     chrome = chrome_test()
     for tries in range(100):
-        logger.info(f"Launched {tries}tries")
+        logger.info(f"Launched {tries} attempt")
         try:
             logger.info('Attempt Login')
             chrome.enter_data()

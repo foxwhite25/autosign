@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
+import datetime
 import logging
+import random
 import time
 
 from selenium import webdriver
@@ -87,6 +89,12 @@ class chrome_test(object):
         rootLogger.info(f'Clicked Login Button.')
 
     def submit(self):
+        today = datetime.date.today().isoformat()
+        for id in ['cjtw', 'wujtw', 'wajtw']:
+            self.driver.find_element(By.ID, id).send_keys("{:.1f}".format(36 + random.random()))
+        for id in ["twyjcrq", "twejcrq", "twsjcrq"]:
+            self.driver.execute_script(f"document.getElementById('{id}').removeAttribute('readonly',0);")
+            self.driver.find_element(By.ID, id).send_keys(today)
         self.driver.find_element(By.ID, '10000').click()
         rootLogger.info(f'Checked box.')
         self.driver.find_element(By.ID, 'tj').click()
